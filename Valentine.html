@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffe6e6;
+        }
+        .container {
+            margin-top: 50px;
+            padding: 20px;
+            background: white;
+            display: inline-block;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+        }
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin: 10px auto;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 200px;
+        }
+        .yes { background-color: #ff4d4d; color: white; }
+        .no { background-color: #999; color: white; }
+        img { width: 150px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container" id="question">
+        <h2>Do you wuv me? 🥺</h2>
+        <button class="yes" onclick="nextQuestion(true)">A lotto</button>
+        <button class="no" onclick="nextQuestion(false)">Nah</button>
+    </div>
+
+    <script>
+        let selectedFood = "";
+
+        function nextQuestion(answer) {
+            const container = document.getElementById("question");
+            if (answer) {
+                container.innerHTML = `
+                    <h2>Would you be my Valentine? ❤️</h2>
+                    <button class="yes" onclick="valentineQuestion(true)">Yes</button>
+                    <button class="no" onclick="valentineQuestion(false)">No</button>
+                `;
+            } else {
+                showAlone();
+            }
+        }
+        
+        function valentineQuestion(answer) {
+            const container = document.getElementById("question");
+            if (answer) {
+                container.innerHTML = `
+                    <h2>Yay! 🎉 What would you like to eat? 🍽️</h2>
+                    <div>
+                        ${createFoodButtons()}
+                    </div>
+                `;
+            } else {
+                showAlone();
+            }
+        }
+        
+        function createFoodButtons() {
+            const foods = [
+                { name: "Korean BBQ", img: "https://i.imgur.com/ZgOLofS.jpeg" },
+                { name: "Italian", img: "https://i.imgur.com/1fu8DFw.jpeg" },
+                { name: "Hot Pot", img: "https://i.imgur.com/10KR0bI.jpeg" },
+                { name: "Sushi", img: "https://i.imgur.com/y8L6Anj.jpeg" },
+                { name: "Ramen", img: "https://i.imgur.com/Lqltq3a.jpeg" },
+                { name: "Burgers", img: "https://i.imgur.com/5mtv74D.jpeg" },
+                { name: "Mexican", img: "https://i.imgur.com/uT3YubM.jpeg" },
+                { name: "Steakhouse", img: "https://i.imgur.com/3XiiSfa.jpeg" },
+                { name: "Vietnamese", img: "https://i.imgur.com/Z6gDVV5.jpeg" },
+                { name: "Dim Sum", img: "https://i.imgur.com/wtvh51j.jpeg" }
+            ];
+            return foods.map(food => `
+                <button class="yes" onclick="nextActivity('${food.img}')">
+                    ${food.name}<br>
+                    <img src="${food.img}" alt="${food.name}">
+                </button>
+            `).join('');
+        }
+
+        function nextActivity(foodImage) {
+            selectedFood = foodImage;
+            const container = document.getElementById("question");
+            container.innerHTML = `
+                <h2>What would you like to do? 🎭</h2>
+                <div>
+                    ${createActivityButtons()}
+                </div>
+            `;
+        }
+        
+        function createActivityButtons() {
+            const activities = [
+                { name: "Movie Night", img: "https://i.imgur.com/dQaGbaV.jpeg" },
+                { name: "Bowling", img: "https://i.imgur.com/eWyIdhw.jpeg" },
+                { name: "Ice Skating", img: "https://i.imgur.com/13M2BSa.jpeg" },
+                { name: "Arcade", img: "https://i.imgur.com/EJs9WYA.jpeg" },
+                { name: "Karaoke", img: "https://i.imgur.com/g8KPF9u.jpeg" },
+                { name: "Museum", img: "https://i.imgur.com/dmt2nJE.jpeg" },
+                { name: "Escape Room", img: "https://i.imgur.com/wLm10U2.jpeg" },
+                { name: "Cooking Together", img: "https://i.imgur.com/I801rJd.gif" },
+                { name: "Picnic", img: "https://i.imgur.com/zWcEbRw.jpeg" },
+                { name: "Board Games", img: "https://i.imgur.com/K5zHHqA.jpeg" }
+            ];
+            return activities.map(activity => `
+                <button class="yes" onclick="finalPage('${activity.img}')">
+                    ${activity.name}<br>
+                    <img src="${activity.img}" alt="${activity.name}">
+                </button>
+            `).join('');
+        }
+        
+        function finalPage(activityImage) {
+            const container = document.getElementById("question");
+            container.innerHTML = `
+                <h2>Yippie! I love you so much honey, can't wait for our date! 💖</h2>
+                <img src="https://i.imgur.com/g1TJW2L.jpeg" alt="Excited Cat">
+                <img src="${selectedFood}" alt="Selected Food">
+                <img src="${activityImage}" alt="Selected Activity">
+            `;
+        }
+        
+        function showAlone() {
+            const container = document.getElementById("question");
+            container.innerHTML = `
+                <h2>I guess I'm alone this Valentine... 😭</h2>
+                <img src="https://i.imgur.com/jyvBWIb.jpeg" alt="Sad Duck">
+            `;
+        }
+    </script>
+</body>
+</html>
